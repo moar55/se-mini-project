@@ -1,2 +1,2 @@
 # se-mini-project
-Mini Project of the SE
+Mini Project for the SE
