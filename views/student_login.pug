@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Student Login Page
+  body
+    form(action='/students/register' method='POST')
+      div(class="form-group col-md-3")
+        label(for="username") Username:
+        input(name="username" type="text" class="form-control" required)
+      div(class="form-group col-md-3")
+        label(for="password") Password:
+        input(name="password" type="password" class="form-control" required)
+     button(class="btn btn-primary" type="submit")Login

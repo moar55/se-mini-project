@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    link(rel="stylesheet" href="bootstrap.css")
+    script(type="text/javascript" src="bootstrap.js")
+    title Student Registration
+    style.
+      #head{
+        margin-top:3%;
+      }
+      input[type="radio"]{
+        margin: 0 5px 0 0
+      }
+  body
+    div(align="center")
+      h1(class="text-primary" id="head") Student Registration
+      h2 Please enter your details below
+      br
+      if(type=="error")
+       h3(class="text-danger") #{message}
+      form(action='/students/register' method='POST')
+        div(class="form-group col-md-3")
+          label(for="id") GUC-ID
+          input(name="id" type="text" class="form-control" required)
+        div(class="form-group col-md-3")
+          label(for="username") Username
+          input(name="username" type="text" class="form-control" required)
+        div(class="form-group col-md-3")
+          label(for="password") Password
+          input(name="password" type="password" class="form-control" required)
+        div(class="form-group")
+            label(class="radio-inline" for="department") MET
+              input(name="department" type="radio")
+            label(class="radio-inline" for="department") BI
+              input(name="department" type="radio")
+        button(class="btn btn-primary" type="submit") Sign Up
