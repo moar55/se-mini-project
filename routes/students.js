@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 var Student = require('../models/Student.js');
 var passwordHash = require('password-hash');
+var path = require('path'),fs=require('fs');
+
+// TODO: Adjust errors sending to meet callbacks order and check for any render/redirect that might collide
 
 router.get('/register',function (req, res) {
   if(!req.session.student)
@@ -10,6 +13,7 @@ router.get('/register',function (req, res) {
     res.redirect('/students/'+req.session.student.id)
   }
 })
+
 
 router.post('/register',function (req, res) {
   if(!req.body.id || !req.body.username || !req.body.password
@@ -20,7 +24,6 @@ router.post('/register',function (req, res) {
 
    else{
     Student.findOne({$or: [{'id': req.body.id} ,{'username': req.body.username}]},function (err, student) {
-      console.log(student);
       if(err)res.render('student_register',{message: "An error occured, try again.",type:"error"})
       else if(student)
         res.render('student_register',{message: "id or username already taken",type: "error"})
@@ -81,7 +84,6 @@ router.get('/logout',function (req, res) {
   res.redirect('/students/login');
 })
 
-
 router.get('/:id',function (req, res) {
   var student = Student.findOne({id: req.params.id},function (err, student) {
     if(student){
@@ -94,6 +96,48 @@ router.get('/:id',function (req, res) {
   })
 })
 
+router.get('/:id/create-portfolio',function (req, res) {
+  console.log(req.session.student);
+  if(req.session.student && req.session.student.id == req.params.id)
+    res.render('student_create_portfolio',{student:req.session.student});
+  else{
+    res.status(401);
+    res.render('401');
+  }
+})
+
+router.post('/:id/create-portfolio',function (req, res){
+  if(req.body.name){
+    console.log(req.body.name);
+    if(req.file){
+    var uploadPath = req.file.path;  // TODO: Check for valid extension
+    var savePath = path.resolve('students_photos/'+
+          req.params.id+'_portfolio.png');
+    console.log(savePath);
+    fs.rename(uploadPath, savePath, function (err) {
+      if(err){
+        console.log('w00t,error '+err);
+        // res.status(500).send(err);
+      }
+      else{
+        console.log('w00t');
+        Student.findOne({'id': req.params.id}, function (err, student) {
+          console.log(savePath);
+          console.log(student);
+          student.profile_picture = savePath;
+          student.save(function (err) {
+            // if(err)res.status(500).send(err);
+          });
+        });
+      }
+      })
+    }
+    res.redirect('/students/'+req.params.id);
+  }
+  else{
+    res.redirect('students/'+req.params.id+'/create-portfolio')
+  }
+})
 
 
 function passwordVerify(password) {
@@ -102,7 +146,7 @@ function passwordVerify(password) {
 }
 
 function idVerify(id) {
-  return id.match(/[0-9]+-[0-9]+/); // TODO: Check that the id follows the sequence {1,3,7,...}
+  return id.match(/[0-9]+-[0-9]+/);
 }
 
 module.exports = router

@@ -8,6 +8,7 @@ var studentSchema = mongoose.Schema({
   username: String,
   password: String,
   department: String,
+  profile_picture: String,
   works: []
 });
 

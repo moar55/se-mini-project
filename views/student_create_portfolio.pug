@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    link(rel="stylesheet" href="../font-awesome.min.css")
+    script(type="text/javascript" src="../bootstrap.min.js")
+    link(rel="stylesheet" href="../bootstrap.min.css")
+
+    title Create Portfolio
+    style.
+      #head{
+        margin-top:3%;
+      }
+
+      .center-block{
+        float: none;
+      }
+      #button{
+        margin-left: 5%;
+      }
+
+  body
+    include ./header
+    div(align="center")
+      h1(class="text-primary" id="head") Create Portfolio
+      h2 Please enter portfolio details below
+      br
+      form(action="/students/"+student.id+'/create-portfolio' enctype="multipart/form-data" method='POST')
+        div(class="form-group col-md-3 center-block")
+          label(for="name") Your Name
+          input(name="name" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="file") Profile Picture
+          input(name="file" id="upload" type="file" required)
+        br
+        button(class="btn btn-primary" type="submit") Create

@@ -10,7 +10,12 @@ html
   body
     include ./header
     h1(align="center") #{student.username}'s Page
-    h3(align="center") It seems you have no portfolio
+    //- if(session)
+    //-   h3(align="center") It seems you have no portfolio
+    //- else
+    //-   h3(align="center") The student has no portfolio yet
     br
-    div(align="center")
-      button(class="btn btn-lg btn-primary") Create One?
+    if(session)
+      div(align="center")
+        a(href="/students/"+student.id+"/create-portfolio")
+          button(class="btn btn-lg btn-primary") Create One?
