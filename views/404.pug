@@ -1,12 +1,13 @@
 doctype html
 html
   head
-    link(rel="stylesheet" href="bootstrap.css")
+    include ./imports
     title 404 Not Found
     style.
       h1{
         margin-top:10%;
       }
   body
+    include ./header
     h1(align="center") 404 invalid page id, we are sorry :'(
     h3(align="center") Just kidding... We aren't sorry, you get your id's right!

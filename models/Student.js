@@ -7,7 +7,8 @@ var studentSchema = mongoose.Schema({
   id: String,
   username: String,
   password: String,
-  department: String
+  department: String,
+  works: []
 });
 
 // studentSchema.index({id:1,username:1});

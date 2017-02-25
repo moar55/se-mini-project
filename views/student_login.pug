@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    link(rel="stylesheet" href="bootstrap.css")
-    script(type="text/javascript" src="bootstrap.js")
+  include ./imports
     title Student Login Page
     style.
       #head{
@@ -12,11 +11,14 @@ html
         margin: 0 5px 0 0
       }
       #my_span{
-        margin-left:13%;;
+        margin-left:10%;
+      }
+      .center-block{
+        float: none;
       }
 
       #login{
-        margin-left:4%;
+        margin-left:5%;
       }
       #forgot{
         margin-left:4%;
@@ -24,6 +26,7 @@ html
 
 
   body
+    include ./header
     div(align="center")
       h1(class="text-primary" id="head") Student Login
       h2 Please enter your login details below
@@ -31,15 +34,15 @@ html
       if(type=="error")
        h3(class="text-danger") #{message}
       form(action='/students/login' method='POST')
-        div(class="form-group col-md-3")
+        div(class="form-group col-md-3 center-block")
           label(for="username") Username
           input(name="username" type="text" class="form-control" required)
-        div(class="form-group col-md-3")
+        div(class="form-group col-md-3 center-block")
           label(for="password") Password
           input(name="password" type="password" class="form-control" required)
         span(id="my_span")
-          button(class="btn btn-primary" style="cursor:pointer" type="submit" id="login") Login
+          button(class="btn btn-primary" type="submit" id="login") Login
           a(href="/students/forgot-password" id="forgot") Forgot your password?
       h4(style="margin-top:1%;") OR
       a(href="/students/register")
-        button(class="btn btn-info" style="cursor:pointer") Register
+        button(class="btn btn-info") Register

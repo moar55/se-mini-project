@@ -1,15 +1,17 @@
 var express = require("express");
 var router = express.Router();
 var Student = require('../models/Student.js');
-var session = require('express-session');
-
+var passwordHash = require('password-hash');
 
 router.get('/register',function (req, res) {
+  if(!req.session.student)
   res.render('student_register');
+  else {
+    res.redirect('/students/'+req.session.student.id)
+  }
 })
 
 router.post('/register',function (req, res) {
-  console.log('oi mate');
   if(!req.body.id || !req.body.username || !req.body.password
    || !passwordVerify(req.body.password) || !idVerify(req.body.id)){ // Password and ID verification
      res.render('student_register',{message: "Fill the required fields and enter a valid id and a valid password of atleast 8 characters contining  one special character and one digit.",
@@ -26,7 +28,7 @@ router.post('/register',function (req, res) {
        var newStudent = new Student({
          id: req.body.id,
          username: req.body.username,
-         password: req.body.password,
+         password: passwordHash.generate(req.body.password),
          department: req.body.department
        });
        newStudent.save(function (err, response) {
@@ -47,32 +49,43 @@ router.post('/login',function (req, res) {
   if(!req.body.username || !req.body.password)
      res.render('student_login',{message: "Fill all the fields please", type:"error"})
    else {
-     Student.findOne({'username': req.body.username, 'password': req.body.password},function (err, student) {
+     Student.findOne({'username': req.body.username},function (err, student) {
        if(err)res.render('student_login',{message: "An error occured, try again.",type:"error"})
        else if(student){
-         console.log('yo man');
-         session.student = student;
+        if(passwordHash.verify(req.body.password,student.password)){
+         req.session.student = student; // TODO: Check if this actually works :D
+         console.log(req.session.student);
          res.redirect('/students/'+student.id)
        }
        else{
-         res.render('student_login',{message: "Wrong username or password", type:"error"})
-
+         res.render('student_login',{message: "Wrong password", type:"error"})
+       }
+     }
+       else{
+         res.render('student_login',{message: "Wrong username", type:"error"})
        }
      });
-
-
    }
 })
 
 router.get('/login',function (req, res) {
+  if(!req.session.student)
   res.render('student_login');
+  else {
+    res.redirect('/students/'+req.session.student.id)
+  }
+})
+
+router.get('/logout',function (req, res) {
+  req.session.destroy();
+  res.redirect('/students/login');
 })
 
 
 router.get('/:id',function (req, res) {
   var student = Student.findOne({id: req.params.id},function (err, student) {
     if(student){
-    res.render('student_portfolio',{student:student});
+    res.render('student_portfolio',{student:student,session:req.session.student});
   }
     else {
       res.status(404);
