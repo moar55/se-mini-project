@@ -24,6 +24,14 @@ html
         margin-left:4%;
       }
 
+      /*form-group{
+        border-radius: 5% !important;
+      }
+
+      form-control{
+        border-radius: 5% !important;
+      }*/
+
 
   body
     include ./header
@@ -36,10 +44,10 @@ html
       form(action='/students/login' method='POST')
         div(class="form-group col-md-3 center-block")
           label(for="username") Username
-          input(name="username" type="text" class="form-control" required)
+          input(name="username" type="text" class="form-control" style="padding:0 5 !important"  required)
         div(class="form-group col-md-3 center-block")
           label(for="password") Password
-          input(name="password" type="password" class="form-control" required)
+          input(name="password" type="password" class="form-control" style="padding: 0 5 !importan" required)
         span(id="my_span")
           button(class="btn btn-primary" type="submit" id="login") Login
           a(href="/students/forgot-password" id="forgot") Forgot your password?

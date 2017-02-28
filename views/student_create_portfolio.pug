@@ -30,6 +30,20 @@ html
           input(name="name" type="text" class="form-control" required)
         div(class="form-group col-md-3 center-block")
           label(for="file") Profile Picture
-          input(name="file" id="upload" type="file" required)
+          input(name="files" type="file")
+        hr
+        h4 Please provide details of one of your works
+        div(class="form-group col-md-3 center-block")
+          label(for="work_name") Name
+          input(name="work_name" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="file") Picture
+          input(name="files" type="file")
+        div(class="form-group col-md-3 center-block")
+          label(for="repo_url") Repo URL
+          input(name="repo_url" type="url" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="link") Link to Project
+          input(name="link" type="url" class="form-control" required)
         br
         button(class="btn btn-primary" type="submit") Create

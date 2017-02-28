@@ -9,9 +9,16 @@ var studentSchema = mongoose.Schema({
   password: String,
   department: String,
   profile_picture: String,
-  works: []
+  works: [{
+    work : mongoose.Schema.Types.ObjectId,
+    name : String,
+    link: String,
+    repository : String,
+    pic : String
+  }]
 });
 
 // studentSchema.index({id:1,username:1});
 
 module.exports = mongoose.model('Student', studentSchema);
+// module.exports = mongoose;
