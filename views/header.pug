@@ -10,3 +10,11 @@ nav(class="navbar navbar-inverse" role="navigation")
           li
             a(href="/students/logout")
               i(class="fa-sign-out" aria-hidden="true") Log Out
+      -else
+        ul(class="nav navbar-nav navbar-right")
+          li
+            a(href="/students/login")
+              i(class="fa-sign-in" aria-hidden="true") Login
+          li
+            a(href="/students/register")
+              i(class="fa-plus" aria-hidden="true") &nbsp; Register

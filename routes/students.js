@@ -4,8 +4,8 @@ var Student = require('../models/Student.js');
 var passwordHash = require('password-hash');
 var path = require('path'),fs=require('fs');
 var mongoose = require('mongoose');
+var request = require('request');
 
-// TODO: Adjust errors sending to meet callbacks order and check for any render/redirect that might collide
 
 router.get('/register',function (req, res) {
   if(!req.session.student)
@@ -39,7 +39,8 @@ router.post('/register',function (req, res) {
          if(err)
          res.render('student_register',{message: "Database error: "+err,type:"error"})
          else {
-           res.redirect('login');
+           req.session.student = newStudent;
+           res.redirect('/students/'+req.body.id)
          }
 
        })
@@ -59,7 +60,7 @@ router.post('/login',function (req, res) {
       }
        else if(student){
         if(passwordHash.verify(req.body.password,student.password)){
-         req.session.student = student; // TODO: Check if this actually works :D
+         req.session.student = student;
          console.log(req.session.student);
          res.redirect('/students/'+student.id)
        }
@@ -84,7 +85,7 @@ router.get('/login',function (req, res) {
 
 router.get('/logout',function (req, res) {
   req.session.destroy();
-  res.redirect('/students/login');
+  res.redirect('../home');
 })
 
 router.get('/:id',function (req, res) {
@@ -103,7 +104,7 @@ router.get('/:id',function (req, res) {
 router.get('/:id/create-portfolio',function (req, res) {
   console.log(req.session.student);
   if(req.session.student && req.session.student.id == req.params.id)
-    res.render('student_create_portfolio',{student:req.session.student});
+    res.render('student_create_portfolio',{student:req.session.student, session: req.session.student});
   else{
     res.status(401);
     res.render('401');
@@ -155,9 +156,11 @@ function savePortfolioProfilePicture(req,savePath,err) {
     Student.findOne({'id': req.params.id}, function (err, student) {
       console.log(student);
       student.profile_picture = savePath;
-      student.save(function (err) {
+      student.save(function (err, savedStudent) {
         if(err) return 1; // Error Occured
+        else req.session.student = savedStudent;  // Update student's info
       });
+
     });
   }
 }
@@ -173,8 +176,9 @@ function saveWorkPhoto(req,id,savePath,err) {
     Student.findOne({'id': req.params.id}, function (err, student) {
       var work = {id: id, name: req.body.work_name, link: req.body.link, repository: req.body.repo_url, pic: savePath};
       student.works.push(work)
-      student.save(function (err) {
+      student.save(function (err, savedStudent) {
         if(err) return 1;
+        else req.session.student = savedStudent; // Update student's info
       });
     });
   }

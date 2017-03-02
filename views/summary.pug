@@ -1,0 +1,66 @@
+doctype html
+html
+  head
+    include ./imports
+    title Portfolios Summary
+    style.
+      h1{
+        margin-top: 3%;
+      }
+      .card img{
+        width: 100%;
+      }
+
+      div.row{
+        width: 100%;
+      }
+
+      p + ul.works {
+        margin-top: -10px;
+      }
+
+      ul.results li{
+        display : inline;
+      }
+      .res{
+        /*margin-top: 5%;*/
+      }
+
+  body
+    include ./header
+    h1(align="center") Portfolios Summary
+    br
+    -for(var i = 0 ; i<students.length ; i++){
+      div.row
+        -for(var j = i ; j<i+3 && j<students.length ; j++){
+          -var student = students[j];
+          div.col-md-4
+            .card
+              img.img-fluid(src='/static/'+student.profile_picture alt="Student's Profile Picture")
+              .card-block
+                a(href="/students/"+student.id target="_blank")
+                  h3.card-title #{student.username}
+                -// TODO: change the above line to actual name instead of username
+                -if(student.works)
+                  div.card-items
+                    p
+                      b.
+                        Works:
+                    if(student.works && student.works.length>1)
+                      ul.works(style="list-style-type: disc !important;")
+                        li #{student.works[0].name}
+                        li #{student.works[1].name}
+          -}
+          -i+=3;
+        -}
+  footer.res
+    hr
+    div.container-fluid(align="center")
+      h3 Results
+      ul.results
+        li
+          a(href="/home") 1
+        -for(var k = 2 ; k<pages+1; k++){
+        li
+          a(href="/home&res="+k) &nbsp; #{k}
+        -}

@@ -11,7 +11,9 @@ html
         border-radius: 50%;
         width: 300px;
       }
-
+      .card img{
+        width: 100%;
+      }
 
     script.
      $(document).ready(function(){
@@ -44,34 +46,38 @@ html
       div(align="center")
         img.img-responsive(id="profile" src='/static/'+student.profile_picture)
         hr
-      -var x = 3;
-      -var first = true;
-      each val in student.works
-       -if(x==0)
-          -x = 3;
-          -first = false;
-       div(class="col-md-4")
-          .card
-            if(val.pic)
-              a(href="/static/"+val.pic target="_blank")
-                img.img-fluid(src='/static/'+val.pic alt="Card image cap" width="200px" height="300px")
-            .card-block
-              h4.card-title #{val.name}
-              if(val.link)
-                a(href=val.link) Link to Project
-              if(val.repository)
-                  a(href=val.repository) Repo Url
-       -if(x == 3 && first==false)
+        -var works = student.works;
+      -for(var i =0 ; i<works.length ;i++){
+         -console.log(works.length);
+         -console.log('wow');
+         div.row
+           -for(var j = i ; j<i+3 && j<works.length ; j++){
+              -var val = works[j];
+              div.col-md-4
+                .card
+                  -if(val.pic)
+                      a(href="/static/"+val.pic target="_blank")
+                        img.img-fluid(src='/static/'+val.pic alt="Work's Pic")
+                  .card-block
+                    h4.card-title #{val.name}
+                    if(val.link)
+                      a(href=val.link) Link to Project
+                      br
+                    if(val.repository)
+                        a(href=val.repository) Repo Url
+                    -}
+
+
+         -i+=3;
          br
-         -console.log("first "+first)
-       -x = x-1;
+      -}
     -else
-     -if(session)
-        h3(align="center") It seems you have no portfolio
-     -else
-        h3(align="center") The student has no portfolio yet
-    //- hr
-    if(session && session.profile_picture == false)
+      -if(session)
+          h3(align="center") It seems you have no portfolio
+      -else
+          h3(align="center") The student has no portfolio yet
+    -if(session && !session.profile_picture)
+      -console.log('yo');
       div(align="center")
         a(href="/students/"+student.id+"/create-portfolio")
           button(class="btn btn-lg btn-primary") Create One?
@@ -97,8 +103,8 @@ html
           label(for="repo_url") Repo URL
           input(name="repo_url" type="url" class="form-control" required)
         div(class="form-group col-md-3 center-block")
-          label(for="repo_url") Link to Project
-          input(name="repo_url" type="url" class="form-control" required)
+          label(for="link") Link to Project
+          input(name="link" type="url" class="form-control" required)
         br
         div(align="center")
             button(class="btn btn-primary" type="submit") Add

@@ -1,10 +1,7 @@
 doctype html
 html
   head
-    link(rel="stylesheet" href="../font-awesome.min.css")
-    script(type="text/javascript" src="../bootstrap.min.js")
-    link(rel="stylesheet" href="../bootstrap.min.css")
-
+    include ./imports
     title Create Portfolio
     style.
       #head{
@@ -32,10 +29,10 @@ html
           label(for="file") Profile Picture
           input(name="files" type="file")
         hr
-        h4 Please provide details of one of your works
+        h3 Please provide details of one of your works
         div(class="form-group col-md-3 center-block")
-          label(for="work_name") Name
-          input(name="work_name" type="text" class="form-control" required)
+          label(for="portfolio_name") Name
+          input(name="portfolio_name" type="text" class="form-control" required)
         div(class="form-group col-md-3 center-block")
           label(for="file") Picture
           input(name="files" type="file")
