@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    include ./imports
+    title Student Registration
+    style.
+      #head{
+        margin-top:3%;
+      }
+
+      .center-block{
+        float: none;
+      }
+
+  body
+    include ./header
+    div(align="center")
+      h1(class="text-primary" id="head") Student Registration
+      h2 Please enter your details below
+      br
+      if(type=="error")
+       h4(class="text-danger") #{message}
+      form(action='/students/register' method='POST')
+        div(class="form-group col-md-3 center-block")
+          label(for="id") GUC-ID
+          input(name="id" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="name") Your Name
+          input(name="name" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="username") Username
+          input(name="username" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="password") Password
+          input(name="password" type="password" class="form-control" required)
+        div(class="form-group")
+            label(class="radio-inline" for="department") MET
+            input(name="department" value="MET" type="radio")
+            label(class="radio-inline" for="department") BI
+            input(name="department" value="BI" type="radio")
+        button(class="btn btn-primary" type="submit") Register

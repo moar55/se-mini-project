@@ -1,0 +1,106 @@
+doctype html
+html
+  head
+    include ./imports
+    title #{student.name}'s Page
+    style.
+      h1{
+        margin-top: 3%;
+      }
+      #profile{
+        border-radius: 50%;
+        width: 300px;
+      }
+      .card img{
+        width: 100%;
+      }
+
+    script.
+     $(document).ready(function(){
+       $("#work_form").hide();
+       $("#cancel").hide();
+       $("#add_work").click(function(){
+         $("#work_form").show();
+         $("#cancel").show();
+         $("#work_form").removeClass("animated fadeOutLeft");
+         $("#work_form").addClass("animated fadeInLeft");
+         $("body, html").animate({
+           scrollTop: $(document).height() }
+           , "slow");
+           })
+
+         $("#cancel").click(function(){
+           $("#work_form").removeClass("animated fadeInLeft");
+           $("#work_form").addClass("animated fadeOutLeft");
+           $("body, html").animate({
+             scrollTop: 0 }
+             , "slow");
+           $("#cancel").hide();
+           /*$("#work_form").css('visibility','hidden').removeClass("animated fadeInLeft")*/
+           })
+         })
+  body
+    include ./header
+    h1(align="center") #{student.name}'s Page
+    if(student.profile_picture)
+      div(align="center")
+        img.img-responsive(id="profile" src='/static/'+student.profile_picture)
+        hr
+        -var works = student.works;
+        -var works2D= [] ;
+        -while(works[0]) {works2D.push(works.splice(0,3))}
+      each row in works2D
+         div.row
+          each work in row
+              div.col-md-4
+                .card
+                  -if(work.pic)
+                      a(href="/static/"+work.pic target="_blank")
+                        img.img-fluid(src='/static/'+work.pic alt="Work's Pic")
+                  .card-block
+                    h4.card-title #{work.name}
+                    if(work.link)
+                      a(href=work.link) Link to Project
+                      br
+                    if(work.repository)
+                        a(href=work.repository) Repo Url
+          br
+    -else
+      -if(session && session.id==student.id)
+          h3(align="center") It seems you have no portfolio
+      -else
+          h3(align="center") The student has no portfolio yet
+    -if(session && session.id==student.id && !session.profile_picture)
+      -console.log('yo');
+      div(align="center")
+        a(href="/students/"+student.id+"/create-portfolio")
+          button(class="btn btn-lg btn-primary") Create One?
+
+    -else if(session && session.id==student.id && session.profile_picture)
+      div.row(align="center")
+        div.col-md-12
+          br
+          br
+          button.btn.btn-primary.btn-lg(id="add_work") Add Work
+      br
+      form(action="/students/"+student.id+'/create-work' id="work_form" enctype="multipart/form-data" method='POST')
+        hr
+        h4(align="center") Please provide details of the work you wish to add
+        br
+        div(class="form-group col-md-3 center-block")
+          label(for="work_name") Name
+          input(name="work_name" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="file") Picture
+          input(name="files" type="file")
+        div(class="form-group col-md-3 center-block")
+          label(for="repo_url") Repo URL
+          input(name="repo_url" type="url" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="link") Link to Project
+          input(name="link" type="url" class="form-control" required)
+        br
+        div(align="center")
+            button(class="btn btn-primary" type="submit") Add
+      div(align="center")
+        button(class="btn btn-warning" id="cancel") Cancel

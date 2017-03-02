@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+  include ./imports
+    title Student Login Page
+    style.
+      #head{
+        margin-top:3%;
+      }
+      input[type="radio"]{
+        margin: 0 5px 0 0
+      }
+      #my_span{
+        margin-left:10%;
+      }
+      .center-block{
+        float: none;
+      }
+
+      #login{
+        margin-left:5%;
+      }
+      #forgot{
+        margin-left:4%;
+      }
+
+      /*form-group{
+        border-radius: 5% !important;
+      }
+
+      form-control{
+        border-radius: 5% !important;
+      }*/
+
+
+  body
+    include ./header
+    div(align="center")
+      h1(class="text-primary" id="head") Student Login
+      h2 Please enter your login details below
+      br
+      if(type=="error")
+       h3(class="text-danger") #{message}
+      form(action='/students/login' method='POST')
+        div(class="form-group col-md-3 center-block")
+          label(for="username") Username
+          input(name="username" type="text" class="form-control" style="padding:0 5 !important"  required)
+        div(class="form-group col-md-3 center-block")
+          label(for="password") Password
+          input(name="password" type="password" class="form-control" style="padding: 0 5 !importan" required)
+        span(id="my_span")
+          button(class="btn btn-primary" type="submit" id="login") Login
+          a(href="/students/forgot-password" id="forgot") Forgot your password?
+      h4(style="margin-top:1%;") OR
+      a(href="/students/register")
+        button(class="btn btn-info") Register
