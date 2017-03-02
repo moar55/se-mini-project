@@ -31,6 +31,7 @@ router.post('/register',function (req, res) {
      else{
        var newStudent = new Student({
          id: req.body.id,
+         name: req.body.name,
          username: req.body.username,
          password: passwordHash.generate(req.body.password),
          department: req.body.department
@@ -112,9 +113,8 @@ router.get('/:id/create-portfolio',function (req, res) {
 })
 
 router.post('/:id/create-portfolio',function (req, res){ // TODO: Ensure that the right user is the one posting...
-  if(req.body.name){
+  if(req.body.work_name){
     if(req.files){
-
     var uploadPath = req.files[0].path;  // TODO: Check for valid extension
     var savePath = path.resolve('students_photos/'+req.params.id+'_portfolio.png');
     var workUploadPath = req.files[1].path;  // TODO: Check for valid extension
@@ -131,7 +131,7 @@ router.post('/:id/create-portfolio',function (req, res){ // TODO: Ensure that th
     res.redirect('/students/'+req.params.id);
   }
   else{
-    res.redirect('students/'+req.params.id+'/create-portfolio')
+    res.redirect('/students/'+req.params.id+'/create-portfolio')
   }
 })
 

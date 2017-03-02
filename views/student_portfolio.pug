@@ -2,7 +2,7 @@ doctype html
 html
   head
     include ./imports
-    title #{student.username}'s Page
+    title #{student.name}'s Page
     style.
       h1{
         margin-top: 3%;
@@ -41,36 +41,30 @@ html
          })
   body
     include ./header
-    h1(align="center") #{student.username}'s Page
+    h1(align="center") #{student.name}'s Page
     if(student.profile_picture)
       div(align="center")
         img.img-responsive(id="profile" src='/static/'+student.profile_picture)
         hr
         -var works = student.works;
-      -for(var i =0 ; i<works.length ;i++){
-         -console.log(works.length);
-         -console.log('wow');
+        -var works2D= [] ;
+        -while(works[0]) {works2D.push(works.splice(0,3))}
+      each row in works2D
          div.row
-           -for(var j = i ; j<i+3 && j<works.length ; j++){
-              -var val = works[j];
+          each work in row
               div.col-md-4
                 .card
-                  -if(val.pic)
-                      a(href="/static/"+val.pic target="_blank")
-                        img.img-fluid(src='/static/'+val.pic alt="Work's Pic")
+                  -if(work.pic)
+                      a(href="/static/"+work.pic target="_blank")
+                        img.img-fluid(src='/static/'+work.pic alt="Work's Pic")
                   .card-block
-                    h4.card-title #{val.name}
-                    if(val.link)
-                      a(href=val.link) Link to Project
+                    h4.card-title #{work.name}
+                    if(work.link)
+                      a(href=work.link) Link to Project
                       br
-                    if(val.repository)
-                        a(href=val.repository) Repo Url
-                    -}
-
-
-         -i+=3;
-         br
-      -}
+                    if(work.repository)
+                        a(href=work.repository) Repo Url
+          br
     -else
       -if(session)
           h3(align="center") It seems you have no portfolio

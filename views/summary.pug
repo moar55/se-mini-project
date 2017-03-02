@@ -30,29 +30,25 @@ html
     include ./header
     h1(align="center") Portfolios Summary
     br
-    -for(var i = 0 ; i<students.length ; i++){
+    each row in students
       div.row
-        -for(var j = i ; j<i+3 && j<students.length ; j++){
-          -var student = students[j];
+        each student in row
           div.col-md-4
             .card
               img.img-fluid(src='/static/'+student.profile_picture alt="Student's Profile Picture")
               .card-block
                 a(href="/students/"+student.id target="_blank")
-                  h3.card-title #{student.username}
-                -// TODO: change the above line to actual name instead of username
+                  h3.card-title #{student.name}
                 -if(student.works)
                   div.card-items
                     p
                       b.
                         Works:
-                    if(student.works && student.works.length>1)
+                    if(student.works)
                       ul.works(style="list-style-type: disc !important;")
                         li #{student.works[0].name}
-                        li #{student.works[1].name}
-          -}
-          -i+=3;
-        -}
+                        if(student.works.length>1)
+                          li #{student.works[1].name}
   footer.res
     hr
     div.container-fluid(align="center")

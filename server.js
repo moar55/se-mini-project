@@ -10,8 +10,8 @@ var mongoose = require('mongoose');
 const portfoliosPerPage = 10;
 
 // TODO: Add HTML headers :)
-// TODO: Add Name field to students so their names will be displayed in the summary.
-// TODO: Add email field to students so mails can be sent if they forgot their passwords.
+// TODO: Fix the fact that i have to refresh for content to be displayed after uploading...etc
+// TODO: Add email field to students and forgot your password feature.
 app.set('view engine', 'pug');
 app.set('views','./views');
 app.use(multer({dest: 'uploads/'}).array('files'));
@@ -31,7 +31,9 @@ app.get('/home',function (req, res) {
     if(err) res.status(500).send();
     else {
       var pages = Math.ceil(students.length/portfoliosPerPage);
-      res.render('summary', {students: students.slice(0,portfoliosPerPage),session: req.session.student,pages: pages})
+      var students2D =[];
+      while(students[0]) {students2D.push(students.splice(0,3))}; // Create a 2D array because pug isn't cool :(
+      res.render('summary', {students: students2D,session: req.session.student,pages: pages})
     }
   })
 })
@@ -43,7 +45,10 @@ app.get('/home&res=:page',function (req, res) {
     if(err) res.status(500).send();
     else {
       var pages = Math.ceil(students.length/portfoliosPerPage);
-      res.render('summary', {students: students.slice((page-1)*portfoliosPerPage,page*portfoliosPerPage),session: req.session.student,pages: pages})
+      students = students.slice((page-1)*portfoliosPerPage,page*portfoliosPerPage);
+      var students2D =[];
+      while(students[0]) {students2D.push(students.splice(0,3))}; // Create a 2D array because pug isn't cool :(
+      res.render('summary', {students: students2D, session: req.session.student,pages: pages})
     }
 })
 })

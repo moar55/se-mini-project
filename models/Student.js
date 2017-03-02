@@ -5,6 +5,7 @@ console.log('woooah');
 
 var studentSchema = mongoose.Schema({
   id: String,
+  name: String,
   username: String,
   password: String,
   department: String,
