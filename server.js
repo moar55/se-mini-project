@@ -11,8 +11,6 @@ const portfoliosPerPage = 10;
 
 
 // TODO: Add HTML headers :)
-// TODO: Fix the fact that i have to refresh for content to be displayed after uploading...etc
-// TODO: Add email field to students and forgot your password feature.
 app.set('view engine', 'pug');
 app.set('views','./views');
 app.use(multer({dest: 'uploads/'}).array('files'));
@@ -28,7 +26,6 @@ app.get('/',function (req, res) {
 
 app.get('/home',function (req, res) {
   Student.find({works: {$not: {$size: 0}}},function (err, students) {
-    console.log('wow');
     if(err) res.status(500).send();
     else {
       var pages = Math.ceil(students.length/portfoliosPerPage);
@@ -42,7 +39,6 @@ app.get('/home',function (req, res) {
 
 app.get('/home&res=:page',function (req, res) {
   Student.find({works: {$not: {$size: 0}}},function (err, students) {
-    console.log('wow');
     var page = req.params.page
     if(err) res.status(500).send();
     else {

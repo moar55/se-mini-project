@@ -69,7 +69,6 @@ html
       -else
           h3(align="center") The student has no portfolio yet
     -if(session && session.id==student.id && !session.profile_picture)
-      -console.log('yo');
       div(align="center")
         a(href="/students/"+student.id+"/create-portfolio")
           button(class="btn btn-lg btn-primary") Create One?

@@ -85,7 +85,7 @@ router.post('/forgot-password',function (req, res) {
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
-          if(error){console.log(err);return res.status(500).send("Something went wrong");}
+          if(error){console.log(error);return res.status(500).send("Something went wrong");}
           else {
             res.render('students_forgot_pass_fallback',{email: req.body.email})
           }
@@ -156,7 +156,6 @@ router.post('/login',function (req, res) {
        else if(student){
         if(passwordHash.verify(req.body.password,student.password)){
          req.session.student = student;
-         console.log(req.session.student);
          res.redirect('/students/'+student.id)
        }
        else{
@@ -184,7 +183,6 @@ router.get('/logout',function (req, res) {
 })
 
 router.get('/:id',function (req, res) {
-  console.log("hey man "+__dirname);
   var student = Student.findOne({id: req.params.id},function (err, student) {
     if(student){
     res.render('student_portfolio',{student:student,session:req.session.student});
@@ -197,7 +195,6 @@ router.get('/:id',function (req, res) {
 })
 
 router.get('/:id/create-portfolio',function (req, res) {
-  console.log(req.session.student);
   if(req.session.student && req.session.student.id == req.params.id)
     res.render('student_create_portfolio',{student:req.session.student, session: req.session.student});
   else{
@@ -221,7 +218,6 @@ router.post('/:id/create-portfolio',function (req, res){
     if(fs.rename(workUploadPath, workSavePath,saveWorkPhoto.bind(null,req,id,id+"_work.png")))return res.status(500).send();;
     // fs.unlinkSync(workUploadPath);
     }
-    console.log('awesoome');
 
     res.redirect('/students/'+req.params.id);
   }
@@ -230,7 +226,7 @@ router.post('/:id/create-portfolio',function (req, res){
   }
 })
 
-router.post('/:id/create-work',function (req, res){ // TODO: Ensure that the right user is the one posting...
+router.post('/:id/create-work',function (req, res){
   if((req.body.work_name || req.files) && req.session.student.id == req.params.id ){
     var workUploadPath = req.files[0].path;  // TODO: Check for valid extension
     var id = mongoose.Types.ObjectId();
@@ -246,18 +242,14 @@ router.post('/:id/create-work',function (req, res){ // TODO: Ensure that the rig
 
 function savePortfolioProfilePicture(req,savePath,err) {
   if(err){
-    console.log('w00t,error '+err);
     return 1;   // Error Occured
   }
   else{
-    console.log('w00t');
     Student.findOne({'id': req.params.id}, function (err, student) {
-      console.log(student);
       student.profile_picture = savePath;
       student.save(function (err, savedStudent) {
         if(err) return 1; // Error Occured
         else req.session.student = savedStudent;  // Update student's info
-        console.log(savedStudent);
       });
 
     });
@@ -265,13 +257,10 @@ function savePortfolioProfilePicture(req,savePath,err) {
 }
 
 function saveWorkPhoto(req,id,savePath,err) {
-  console.log('ehmm');
   if(err){
-    console.log('w00t,error '+err);
     return 1;
   }
   else{
-    console.log('w00t');
     Student.findOne({'id': req.params.id}, function (err, student) {
       var work = {id: id, name: req.body.work_name, link: req.body.link, repository: req.body.repo_url, pic: savePath};
       student.works.push(work)

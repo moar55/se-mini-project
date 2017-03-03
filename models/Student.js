@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/portfolio');
 
-console.log('woooah');
-
 var studentSchema = mongoose.Schema({
   id: String,
   name: String,
