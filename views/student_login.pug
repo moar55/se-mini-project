@@ -2,11 +2,9 @@ doctype html
 html
   head
   include ./imports
+  include ./styles
     title Student Login Page
     style.
-      #head{
-        margin-top:3%;
-      }
       input[type="radio"]{
         margin: 0 5px 0 0
       }
@@ -36,8 +34,8 @@ html
   body
     include ./header
     div(align="center")
-      h1(class="text-primary" id="head") Student Login
-      h2 Please enter your login details below
+      h1.cool.head-blue Student Login
+      h2.cool Please enter your login details below
       br
       if(type=="error")
        h3(class="text-danger") #{message}
@@ -51,6 +49,8 @@ html
         span(id="my_span")
           button(class="btn btn-primary" type="submit" id="login") Login
           a(href="/students/forgot-password" id="forgot") Forgot your password?
-      h4(style="margin-top:1%;") OR
+      h4(style="margin-top:1%;")
+        b.
+          OR
       a(href="/students/register")
         button(class="btn btn-info") Register

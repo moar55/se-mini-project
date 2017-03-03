@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    include ./imports
+    include ./styles
+    title Password Recovery
+    style.
+      .center-block{
+        float: none;
+      }
+
+  body
+    include ./header
+    div(align="center")
+      h1.cool.head-blue Recover Your Password
+      h2.cool Please enter your email below
+      br
+      if(error)
+       h4(class="text-danger") #{error}
+      form(action='/students/forgot-password' method='POST')
+       div(class="form-group col-md-3 center-block")
+         label(for="email") Email
+         input(name="email" type="email" class="form-control" required)
+       button.btn.btn-lg.btn-success(type="submit") Send Recovery Mail

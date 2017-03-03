@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+  include ./imports
+  include ./styles
+    title Reset Password
+    style.
+          .center-block{
+            float: none;
+          }
+  body
+    include ./header
+    div(align="center")
+      h1.cool.head-blue Reset Password
+      h2.cool Please enter the new password
+      br
+      if(type=="error")
+       h3(class="text-danger") #{message}
+      form(action='/students/password-reset&id='+id method='POST')
+        div(class="form-group col-md-3 center-block")
+          label(for="password") Password
+          input(name="password" type="password" class="form-control" style="padding:0 5 !important"  required)
+        div(class="form-group col-md-3 center-block")
+          label(for="verify_password") Verify Password
+          input(name="verify_password" type="password" class="form-control" style="padding: 0 5 !importan" required)
+
+        button(class="btn btn-primary" type="submit") Reset

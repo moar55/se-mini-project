@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Baloo';
+    font-style: normal;
+    font-weight: 400;
+    src: url(Baloo_400_normal.eot); /* {{embedded-opentype-gf-url}} */
+    src: local('☺'),
+        url(Baloo_400_normal.eot?#iefix) format('embedded-opentype'), /* {{embedded-opentype-gf-url}} */
+        url(Baloo_400_normal.woff) format('woff'), /* http://fonts.gstatic.com/s/baloo/v1/vi7PMxrcqrWOBYSFqU_EgA.woff */
+        url(Baloo_400_normal.ttf) format('truetype'), /* http://fonts.gstatic.com/s/baloo/v1/A7h_B0aiZu0RuQwOsEJDd6CWcynf_cDxXwCLxiixG1c.ttf */
+        url(Baloo_400_normal.svg#Baloo_400_normal) format('svg'); /* http://fonts.gstatic.com/l/font?kit=ZOcxBRsF_MHn_2f9A8qZ8w&skey=909b6264e020bb06&v=v1#Baloo */
+}

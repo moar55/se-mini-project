@@ -9,6 +9,7 @@ var multer = require('multer');
 var mongoose = require('mongoose');
 const portfoliosPerPage = 10;
 
+
 // TODO: Add HTML headers :)
 // TODO: Fix the fact that i have to refresh for content to be displayed after uploading...etc
 // TODO: Add email field to students and forgot your password feature.
@@ -31,6 +32,7 @@ app.get('/home',function (req, res) {
     if(err) res.status(500).send();
     else {
       var pages = Math.ceil(students.length/portfoliosPerPage);
+      students = students.slice(0,1*portfoliosPerPage);
       var students2D =[];
       while(students[0]) {students2D.push(students.splice(0,3))}; // Create a 2D array because pug isn't cool :(
       res.render('summary', {students: students2D,session: req.session.student,pages: pages})

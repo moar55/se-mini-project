@@ -44,3 +44,6 @@ uploads
 
 #students_photos
 students_photos
+
+#configuration file
+config.js

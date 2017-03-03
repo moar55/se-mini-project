@@ -2,12 +2,9 @@ doctype html
 html
   head
     include ./imports
+    include ./styles
     title 401 Unauthorize Access
-    style.
-      h1{
-        margin-top:10%;
-      }
   body
     include ./header
-    h1(align="center") 401 Unauthorized Access!
-    h3(align="center") What are you doing here?!
+    h1.cool.header(align="center") 401 Unauthorized Access!
+    h3.cool.header(align="center") What are you doing here?!

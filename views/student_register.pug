@@ -2,12 +2,9 @@ doctype html
 html
   head
     include ./imports
+    include ./styles
     title Student Registration
     style.
-      #head{
-        margin-top:3%;
-      }
-
       .center-block{
         float: none;
       }
@@ -15,8 +12,8 @@ html
   body
     include ./header
     div(align="center")
-      h1(class="text-primary" id="head") Student Registration
-      h2 Please enter your details below
+      h1.cool.head-blue Student Registration
+      h2.cool Please enter your details below
       br
       if(type=="error")
        h4(class="text-danger") #{message}
@@ -27,6 +24,9 @@ html
         div(class="form-group col-md-3 center-block")
           label(for="name") Your Name
           input(name="name" type="text" class="form-control" required)
+        div(class="form-group col-md-3 center-block")
+          label(for="email") Your Email
+          input(name="email" type="email" class="form-control" required)
         div(class="form-group col-md-3 center-block")
           label(for="username") Username
           input(name="username" type="text" class="form-control" required)

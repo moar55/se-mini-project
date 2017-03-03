@@ -3,11 +3,8 @@ html
   head
     include ./imports
     title Create Portfolio
+    include ./styles
     style.
-      #head{
-        margin-top:3%;
-      }
-
       .center-block{
         float: none;
       }
@@ -18,8 +15,8 @@ html
   body
     include ./header
     div(align="center")
-      h1(class="text-primary" id="head") Create Portfolio
-      h2 Please enter portfolio details below
+      h1.cool.head-blue(id="head") Create Portfolio
+      h2.cool Please enter portfolio details below
       br
       form(action="/students/"+student.id+'/create-portfolio' enctype="multipart/form-data" method='POST')
         div(class="form-group col-md-3 center-block")

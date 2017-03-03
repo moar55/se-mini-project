@@ -3,10 +3,8 @@ html
   head
     include ./imports
     title #{student.name}'s Page
+    include ./styles
     style.
-      h1{
-        margin-top: 3%;
-      }
       #profile{
         border-radius: 50%;
         width: 300px;
@@ -41,7 +39,7 @@ html
          })
   body
     include ./header
-    h1(align="center") #{student.name}'s Page
+    h1.cool.header(align="center") #{student.name}'s Page
     if(student.profile_picture)
       div(align="center")
         img.img-responsive(id="profile" src='/static/'+student.profile_picture)
