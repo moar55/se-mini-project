@@ -1,5 +1,5 @@
 # se-mini-project
-##This is a mini project(warmup) for the SE course in the German University in Cairo.
+This is a mini project(warmup) for the SE course in the German University in Cairo.
 
 ##Please update to node v6+
 I am using the nodemailer for password recovery module which only works with node v6+
