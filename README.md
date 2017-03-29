@@ -1,9 +1,9 @@
 # se-mini-project
 This is a mini project(warmup) for the SE course in the German University in Cairo.
 
-###Web app's Link: http://54.218.17.200:3000/home   
+### Web app's Link: http://54.218.17.200:3000/home   
 
-##Please update to node v6+
+## Please update to node v6+
 I am using the nodemailer module for password recovery which only works with node v6+
 .However if you can't possibly update you can refer to the older commit "major bug fix".
 
