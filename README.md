@@ -5,7 +5,7 @@ This is a mini project(warmup) for the SE course in the German University in Cai
 
 ##Please update to node v6+
 I am using the nodemailer module for password recovery which only works with node v6+
-.However if you can't possibly update you can refer to the older commit "major bug fix". Either way I want my bonus :joy: 
+.However if you can't possibly update you can refer to the older commit "major bug fix".
 
 ###Files/Folders you will need to create:
 - uploads folder for temp upload (it should be created automatically by node according to my code).
