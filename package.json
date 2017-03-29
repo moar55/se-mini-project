@@ -1,7 +1,7 @@
 {
   "name": "se-mini-project",
   "version": "1.0.0",
-  "description": "Preprotory project for GUC's SE project.",
+  "description": "Prepratory project for GUC's SE project.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
