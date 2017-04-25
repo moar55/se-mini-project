@@ -29,6 +29,7 @@ router.get('/register',function (req, res) {
 
 
 router.post('/register',function (req, res) {
+  console.log(req.body);
   if(!req.body.id || !req.body.username || !req.body.password ||
     !passwordVerify(req.body.password) || !idVerify(req.body.id) || // Password and ID verification
     !req.body.name || !req.body.email){

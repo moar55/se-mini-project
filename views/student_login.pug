@@ -8,28 +8,22 @@ html
       input[type="radio"]{
         margin: 0 5px 0 0
       }
-      #my_span{
-        margin-left:10%;
-      }
       .center-block{
         float: none;
+        position:relative;
       }
-
-      #login{
-        margin-left:5%;
+      .form-inline{
+        margin-left:130px;
       }
-      #forgot{
-        margin-left:4%;
+      @media all and (max-width: 600px) {
+        .form-inline{
+          margin-left:200px;
+        }
       }
-
-      /*form-group{
-        border-radius: 5% !important;
+      #or{
+        margin-top:1%;
+        margin-right:1%;
       }
-
-      form-control{
-        border-radius: 5% !important;
-      }*/
-
 
   body
     include ./header
@@ -45,12 +39,12 @@ html
           input(name="username" type="text" class="form-control" style="padding:0 5 !important"  required)
         div(class="form-group col-md-3 center-block")
           label(for="password") Password
-          input(name="password" type="password" class="form-control" style="padding: 0 5 !importan" required)
-        span(id="my_span")
-          button(class="btn btn-primary" type="submit" id="login") Login
-          a(href="/students/forgot-password" id="forgot") Forgot your password?
-      h4(style="margin-top:1%;")
-        b.
-          OR
-      a(href="/students/register")
+          input(name="password" type="password" class="form-control" style="padding: 0 5 !important" required)
+        div(class="form-inline" )
+          button(class="btn btn-primary" id="login" type="submit") Login
+          a(href="/students/forgot-password") Forgot your password?
+        h4(id="or")
+          b.
+            OR
+      a(id="register" href="/students/register")
         button(class="btn btn-info") Register

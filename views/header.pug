@@ -8,6 +8,9 @@ nav(class="navbar navbar-inverse" role="navigation")
       if(session)
         ul(class="nav navbar-nav navbar-right")
           li
+            a(href="/students/"+session.id)
+              i(class="fa-user" aria-hidden="true") Profile
+          li
             a(href="/students/logout")
               i(class="fa-sign-out" aria-hidden="true") Log Out
       -else

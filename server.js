@@ -37,6 +37,10 @@ app.get('/home',function (req, res) {
   })
 })
 
+app.get('/home/test',function (req, res) {
+  res.render('test-webcam');
+});
+
 app.get('/home&res=:page',function (req, res) {
   Student.find({works: {$not: {$size: 0}}},function (err, students) {
     var page = req.params.page
