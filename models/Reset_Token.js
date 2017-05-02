@@ -11,7 +11,5 @@ var resetToken = mongoose.Schema({
 
 resetToken.index({createdAt: 1},{expireAfterSeconds: 3600})
 
-// studentSchema.index({id:1,username:1});
 
 module.exports = mongoose.model('Reset_Token', resetToken);
-// module.exports = mongoose;
