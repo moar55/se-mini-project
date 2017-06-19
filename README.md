@@ -1,5 +1,6 @@
 # se-mini-project
 This is a mini project(warmup) for the SE course in the German University in Cairo.
+It is a portfolio site to allow BI(Business Infomatics) and CS students to create a portfolio and post their works.
 
 ### Web app's Link: http://54.218.17.200:3000/home   
 
